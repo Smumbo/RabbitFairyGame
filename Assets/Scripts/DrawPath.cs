@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -52,6 +53,8 @@ public class MouseDrawing : MonoBehaviour
                 edgePoints[i] = lineRenderer.GetPosition(i);
             }
             edgeCollider.points = edgePoints;
+
+            
         }
     }
 }
