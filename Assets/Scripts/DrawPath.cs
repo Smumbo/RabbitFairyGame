@@ -7,13 +7,15 @@ public class MouseDrawing : MonoBehaviour
 {
     public Material lineMaterial;
     public float lineWidth = 0.1f;
-    public int maxLineLength = 100;
+    public float maxLength = 10f;
     private List<LineRenderer> lines;
     private List<EdgeCollider2D> edgeColliders;
     private LineRenderer lineRenderer;
     private EdgeCollider2D edgeCollider;
     private Vector3 mousePos;
+    private Vector3 lastMousePos;
     private Vector2[] edgePoints;
+    private float currentLength;
 
     void Start()
     {
@@ -25,6 +27,7 @@ public class MouseDrawing : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+            currentLength = 0f;
             GameObject lineObject = new GameObject("Line");
             lineObject.transform.parent = transform;
             lineRenderer = lineObject.AddComponent<LineRenderer>();
@@ -33,13 +36,21 @@ public class MouseDrawing : MonoBehaviour
             lineRenderer.endWidth = lineWidth;
             lineRenderer.positionCount = 0;
             lines.Add(lineRenderer);
+            mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            mousePos.z = transform.position.z;
+            lastMousePos = mousePos;
         }
-        if (Input.GetMouseButton(0) && lineRenderer.positionCount < maxLineLength)
+        if (Input.GetMouseButton(0))
         {
             mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mousePos.z = transform.position.z;
-            lineRenderer.positionCount++;
-            lineRenderer.SetPosition(lineRenderer.positionCount - 1, mousePos);
+            currentLength += Vector3.Distance(mousePos, lastMousePos);
+            if (currentLength <= maxLength)
+            {
+                lineRenderer.positionCount++;
+                lineRenderer.SetPosition(lineRenderer.positionCount - 1, mousePos);
+                lastMousePos = mousePos;
+            }
         }
         if (Input.GetMouseButtonUp(0))
         {
