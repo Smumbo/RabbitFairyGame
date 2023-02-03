@@ -7,6 +7,7 @@ public class MouseDrawing : MonoBehaviour
 {
     public Material lineMaterial;
     public float lineWidth = 0.1f;
+    public int maxLineLength = 100;
     private List<LineRenderer> lines;
     private List<EdgeCollider2D> edgeColliders;
     private LineRenderer lineRenderer;
@@ -33,7 +34,7 @@ public class MouseDrawing : MonoBehaviour
             lineRenderer.positionCount = 0;
             lines.Add(lineRenderer);
         }
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && lineRenderer.positionCount < maxLineLength)
         {
             mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mousePos.z = transform.position.z;
@@ -53,8 +54,6 @@ public class MouseDrawing : MonoBehaviour
                 edgePoints[i] = lineRenderer.GetPosition(i);
             }
             edgeCollider.points = edgePoints;
-
-            
         }
     }
 }
