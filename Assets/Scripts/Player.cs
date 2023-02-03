@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
 {
 
     public int speed;
+    public float jumpForce;
     private Rigidbody2D rb;
 
     // Start is called before the first frame update
@@ -22,8 +23,9 @@ public class Player : MonoBehaviour
 
         rb.velocity = new Vector3(xMove, rb.velocity.y, zMove) * speed;
 
+
         if(Input.GetButtonDown("Jump")){
-            rb.AddForce(Vector2.up, ForceMode2D.Impulse);
+                //WHY DOESN'T RB.ADDFORCE WORK LIKE IT SHOULD STUPID PIECE OF CODE
         }
     }
 }
