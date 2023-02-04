@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     public int speed;
     public float jumpForce;
     private Rigidbody2D rb;
+    private GameObject lastCheckpoint;
 
     // Start is called before the first frame update
     void Start()
@@ -26,6 +27,16 @@ public class Player : MonoBehaviour
 
         if(Input.GetButtonDown("Jump")){
                 //WHY DOESN'T RB.ADDFORCE WORK LIKE IT SHOULD STUPID PIECE OF CODE
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.GetComponent<Death>() != null){
+            this.transform.position = lastCheckpoint.transform.position;
+        }
+        else if(collision.gameObject.GetComponent<Checkpoint>() != null){
+            lastCheckpoint = collision.gameObject;
         }
     }
 }
