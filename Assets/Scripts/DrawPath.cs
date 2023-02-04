@@ -25,11 +25,27 @@ public class DrawPath : MonoBehaviour
     // keep track of the current line length
     private float currentLength;
 
+    public static DrawPath instance;
+    private bool isDrawing;
+
+    public DrawPath()
+    {
+        instance = this;
+    }
+
     void Update()
     {
+        // only draw if player is hovering on a node 
+        if (!SceneManager.instance.GetCanDraw())
+        {
+            return;
+        }
+
         // mouse clicked
         if (Input.GetMouseButtonDown(0))
         {
+            isDrawing = true;
+
             // start a new line
             currentLength = 0f;
             currPath = new GameObject("Path");
@@ -90,6 +106,14 @@ public class DrawPath : MonoBehaviour
             }
             edgeCollider.points = edgePoints;
             edgeCollider.enabled = true;
+
+            isDrawing = false;
         }
     }
+
+    public bool IsDrawing()
+    {
+        return isDrawing;
+    }
 }
+
