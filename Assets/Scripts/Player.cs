@@ -76,6 +76,7 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<MushroomNode>() != null)
         {
+            // todo: fix this. it only moves the player right, never left
             Vector2 dir = Vector2.Perpendicular(-collision.contacts[0].normal);
             dir.y = Mathf.Max(Mathf.Abs(dir.y), 1);
             rb.velocity += dir * bounceForce;
