@@ -30,7 +30,7 @@ public class PathNode : MonoBehaviour
 
     private void OnMouseExit()
     {
-        // Disable drawing when the cursor enters path node, iff player is not currently drawing
+        // Disable drawing when the cursor exits path node, iff player is not currently drawing
         if (!DrawPath.instance.IsDrawing())
         {
             SceneManager.instance.SetCanDraw(false);
