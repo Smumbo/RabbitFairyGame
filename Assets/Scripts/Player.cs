@@ -70,7 +70,7 @@ public class Player : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         MushroomNode mushroom = collision.gameObject.GetComponent<MushroomNode>();
-        if (mushroom != null && mushroom.mushroom.activeSelf)
+        if (mushroom != null && mushroom.createdObject.activeSelf)
         {
             Vector2 dir = Vector2.Perpendicular(collision.contacts[0].normal) * Vector2.Dot(rb.velocity, collision.contacts[0].normal);
             dir.y = Mathf.Max(Mathf.Abs(dir.y), 1);

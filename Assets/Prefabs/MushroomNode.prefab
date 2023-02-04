@@ -171,7 +171,7 @@ GameObject:
   - component: {fileID: 6705167201436343909}
   - component: {fileID: 6705167201436343906}
   m_Layer: 0
-  m_Name: Mushroom node
+  m_Name: MushroomNode
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -191,7 +191,7 @@ Transform:
   m_Children:
   - {fileID: 6705167201007895753}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6705167201436343911
 SpriteRenderer:
@@ -292,4 +292,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbdac522d33fc4dd395912281e695cef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  createdObject: {fileID: 6705167201007895752}
   mushroom: {fileID: 6705167201007895752}

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SceneManager : MonoBehaviour
 {
-    public Drawable lastObject;
+    public Node currentNode = null;
     public static SceneManager instance;
     private bool canDraw;
 
@@ -20,6 +20,17 @@ public class SceneManager : MonoBehaviour
         {
             Application.Quit();
         }
+    }
+
+    public void ActivateNode(Node node)
+    {
+        if (currentNode != null)
+        {
+            currentNode.Deactivate();
+        }
+        
+        currentNode = node;
+        currentNode.Activate();
     }
 
     public bool GetCanDraw()

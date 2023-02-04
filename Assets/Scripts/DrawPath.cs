@@ -111,6 +111,11 @@ public class DrawPath : MonoBehaviour
         }
     }
 
+    public GameObject GetCurrPath()
+    {
+        return currPath;
+    }
+
     public bool IsDrawing()
     {
         return isDrawing;

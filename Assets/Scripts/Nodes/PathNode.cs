@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class PathNode : MonoBehaviour
+public class PathNode : Node
 {
     private bool stopDrawing;
 
@@ -14,11 +15,13 @@ public class PathNode : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // If player is done drawing and we need to disable drawing, disable it
+        // If player is done drawing and we need to disable drawing,
+        // disable it and activate the path belonging to this node
         if (stopDrawing && !DrawPath.instance.IsDrawing())
         {
             SceneManager.instance.SetCanDraw(false);
             stopDrawing = false;
+            SceneManager.instance.ActivateNode(this);
         }
     }
 
@@ -40,5 +43,17 @@ public class PathNode : MonoBehaviour
             // Disable drawing once player stops drawing
             stopDrawing = true;
         }
+    }
+
+    public override void Activate()
+    {
+        createdObject = DrawPath.instance.GetCurrPath();
+        EdgeCollider2D collider = createdObject.GetComponent<EdgeCollider2D>();
+        collider.enabled = true;
+    }
+
+    public override void Deactivate()
+    {
+        Destroy(createdObject);
     }
 }
