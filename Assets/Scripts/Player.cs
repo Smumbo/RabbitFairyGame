@@ -21,7 +21,7 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        float xMove = Input.GetAxisRaw("Horizontal"); // d key changes value to 1, a key changes value to -1
+        float xMove = Input.GetAxisRaw("Horizontal");
 
         Vector2 newVel = new Vector2((xMove * speed) - rb.velocity.x, 0);
         
