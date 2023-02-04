@@ -101,7 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 3
   jumpForce: 5
-  bounceForce: 0.25
+  bounceForce: 5
   groundCheckShift: {x: 0, y: -0.55}
   groundCheckDistance: 0.05
   lastCheckpoint: {fileID: 0}
