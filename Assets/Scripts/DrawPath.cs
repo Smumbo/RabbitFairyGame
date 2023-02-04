@@ -6,7 +6,7 @@ using UnityEngine;
 public class DrawPath : MonoBehaviour
 {
     // public variables
-    public Material lineMaterial;
+    public Material pathMaterial;
     public float lineWidth = 0.1f;
     public float maxLength = 10f;
 
@@ -37,7 +37,7 @@ public class DrawPath : MonoBehaviour
 
             // create line renderer
             lineRenderer = currPath.AddComponent<LineRenderer>();
-            lineRenderer.material = lineMaterial;
+            lineRenderer.material = pathMaterial;
             lineRenderer.startWidth = lineWidth;
             lineRenderer.endWidth = lineWidth;
             lineRenderer.positionCount = 0;
