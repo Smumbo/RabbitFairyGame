@@ -57,7 +57,8 @@ public class Player : MonoBehaviour
         RaycastHit2D hit;
         if (hit = Physics2D.Raycast(rb.position + groundCheckShift, Vector2.down * groundCheckDistance, groundCheckDistance))
         {
-            return hit.rigidbody.gameObject.GetComponent<MushroomNode>() != null;
+            if (hit.collider != null)
+                return hit.collider.gameObject.GetComponent<MushroomNode>() != null;
         }
         return false;
     }
