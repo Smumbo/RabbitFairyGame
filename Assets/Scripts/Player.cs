@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     public float bounceForce;
     public Vector2 groundCheckShift;
     public float groundCheckDistance;
+    public float groundCheckRadius = 0.5f;
     private Rigidbody2D rb;
     public GameObject lastCheckpoint;
 
@@ -41,16 +42,10 @@ public class Player : MonoBehaviour
 
     private bool IsGrounded()
     {
-        return Physics2D.Raycast(rb.position + groundCheckShift, Vector2.down * groundCheckDistance, groundCheckDistance);
-    }
-
-    private bool HitMushroom()
-    {
         RaycastHit2D hit;
-        if (hit = Physics2D.Raycast(rb.position + groundCheckShift, Vector2.down * groundCheckDistance, groundCheckDistance))
+        if (hit = Physics2D.CircleCast(rb.position + groundCheckShift, groundCheckRadius, Vector2.down * groundCheckDistance, groundCheckDistance, LayerMask.GetMask(new string[]{ "Default"})))
         {
-            if (hit.collider != null)
-                return hit.collider.gameObject.GetComponent<MushroomNode>() != null;
+            return !hit.collider.isTrigger;
         }
         return false;
     }
@@ -74,10 +69,10 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.GetComponent<MushroomNode>() != null)
+        MushroomNode mushroom = collision.gameObject.GetComponent<MushroomNode>();
+        if (mushroom != null && mushroom.mushroom.activeSelf)
         {
-            // todo: fix this. it only moves the player right, never left
-            Vector2 dir = Vector2.Perpendicular(-collision.contacts[0].normal);
+            Vector2 dir = Vector2.Perpendicular(collision.contacts[0].normal) * Vector2.Dot(rb.velocity, collision.contacts[0].normal);
             dir.y = Mathf.Max(Mathf.Abs(dir.y), 1);
             rb.velocity += dir * bounceForce;
         }

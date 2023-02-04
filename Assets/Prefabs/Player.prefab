@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6288120029689098886}
   - component: {fileID: 6288120029689098884}
   - component: {fileID: 6288120029689098885}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,11 +99,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c8a607d7c779476b8f8ded5dd4c3cf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
-  jumpForce: 5
+  speed: 5
+  jumpForce: 3
   bounceForce: 5
   groundCheckShift: {x: 0, y: -0.55}
   groundCheckDistance: 0.01
+  groundCheckRadius: 0.1
   lastCheckpoint: {fileID: 0}
 --- !u!58 &6288120029689098884
 CircleCollider2D:
@@ -166,4 +167,4 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
+  m_Constraints: 4
