@@ -36,7 +36,7 @@ public class DrawPath : MonoBehaviour
 
     void Update()
     {
-        // only draw if player is hovering on a node 
+        // only allow the player to start drawing if player is hovering on a node
         if (!SceneManager.instance.GetCanDraw())
         {
             return;
