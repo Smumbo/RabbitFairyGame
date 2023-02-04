@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -7,7 +8,7 @@ public class Player : MonoBehaviour
 
     public float speed;
     public float jumpForce;
-    public float weight;
+    public float bounceForce;
     public Vector2 groundCheckShift;
     public float groundCheckDistance;
     private Rigidbody2D rb;
@@ -25,7 +26,12 @@ public class Player : MonoBehaviour
 
         Vector2 newVel = new Vector2((xMove * speed) - rb.velocity.x, 0);
         
-        if (IsGrounded())
+        if (HitMushroom())
+        {
+            Vector2 dir = Vector2.Perpendicular(-rb.velocity);
+            newVel += dir.normalized * bounceForce;
+        }
+        else if (IsGrounded())
         {
             if (Input.GetButtonDown("Jump"))
             {
@@ -34,17 +40,26 @@ public class Player : MonoBehaviour
         }
         else
         {
-            newVel /= weight / Time.fixedDeltaTime;
+            newVel /= rb.mass / Time.fixedDeltaTime;
             newVel.y += Physics2D.gravity.y * Time.fixedDeltaTime;
         }
 
-        
         rb.velocity += newVel;
     }
 
     private bool IsGrounded()
     {
         return Physics2D.Raycast(rb.position + groundCheckShift, Vector2.down * groundCheckDistance, groundCheckDistance);
+    }
+
+    private bool HitMushroom()
+    {
+        RaycastHit2D hit;
+        if (hit = Physics2D.Raycast(rb.position + groundCheckShift, Vector2.down * groundCheckDistance, groundCheckDistance))
+        {
+            return hit.rigidbody.gameObject.GetComponent<MushroomNode>() != null;
+        }
+        return false;
     }
 
     public void GoToCheckpoint() 
