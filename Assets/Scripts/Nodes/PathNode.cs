@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class PathNode : Node
 {
-    private bool stopDrawing;
+    private bool disableDrawing;
 
     private void Start()
     {
-        stopDrawing = false;
+        disableDrawing = false;
     }
 
     // Update is called once per frame
@@ -17,15 +17,15 @@ public class PathNode : Node
     {
         if (DrawPath.instance.IsCanceled())
         {
-            stopDrawing = false;
+            disableDrawing = false;
             return;
         }
         // If player is done drawing and we need to disable drawing,
         // disable it and activate the path belonging to this node
-        if (stopDrawing && !DrawPath.instance.IsDrawing() && DrawPath.instance.IsFinished())
+        if (disableDrawing && !DrawPath.instance.IsDrawing() && DrawPath.instance.IsFinished())
         {
             SceneManager.instance.SetCanDraw(false);
-            stopDrawing = false;
+            disableDrawing = false;
             SceneManager.instance.ActivateNode(this);
         }
     }
@@ -46,7 +46,7 @@ public class PathNode : Node
         else
         {
             // Disable drawing once player stops drawing
-            stopDrawing = true;
+            disableDrawing = true;
         }
     }
 
