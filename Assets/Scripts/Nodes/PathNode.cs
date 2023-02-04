@@ -17,6 +17,7 @@ public class PathNode : Node
     {
         if (DrawPath.instance.IsCanceled())
         {
+            stopDrawing = false;
             return;
         }
         // If player is done drawing and we need to disable drawing,
