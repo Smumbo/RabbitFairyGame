@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
     public int speed;
     public float jumpForce;
     private Rigidbody2D rb;
-    private GameObject lastCheckpoint;
+    public GameObject lastCheckpoint;
 
     // Start is called before the first frame update
     void Start()
@@ -30,13 +30,9 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.gameObject.GetComponent<Death>() != null){
-            this.transform.position = lastCheckpoint.transform.position;
-        }
-        else if(collision.gameObject.GetComponent<Checkpoint>() != null){
-            lastCheckpoint = collision.gameObject;
-        }
+
+    public void GoToCheckpoint(){
+
+         this.transform.position = lastCheckpoint.transform.position;   
     }
 }
