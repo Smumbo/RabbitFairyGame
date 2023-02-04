@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
         rb = this.GetComponent<Rigidbody2D>();
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         float xMove = Input.GetAxisRaw("Horizontal");
 
@@ -29,12 +29,13 @@ public class Player : MonoBehaviour
             if (Input.GetButtonDown("Jump"))
             {
                 newVel.y = jumpForce;
+                Debug.Log("jumped");
             }
         }
         else
         {
-            newVel /= rb.mass / Time.fixedDeltaTime;
-            newVel.y += Physics2D.gravity.y * Time.fixedDeltaTime;
+            newVel /= rb.mass / Time.deltaTime;
+            newVel.y += Physics2D.gravity.y * Time.deltaTime;
         }
 
         rb.velocity += newVel;

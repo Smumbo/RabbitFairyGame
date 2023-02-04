@@ -33,7 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6288120029689098889
 SpriteRenderer:
@@ -102,9 +102,9 @@ MonoBehaviour:
   speed: 5
   jumpForce: 3
   bounceForce: 5
-  groundCheckShift: {x: 0, y: -0.55}
+  groundCheckShift: {x: 0, y: -0.5}
   groundCheckDistance: 0.01
-  groundCheckRadius: 0.1
+  groundCheckRadius: 0.05
   lastCheckpoint: {fileID: 0}
 --- !u!58 &6288120029689098884
 CircleCollider2D:
