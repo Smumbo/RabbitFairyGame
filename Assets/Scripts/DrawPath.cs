@@ -25,7 +25,9 @@ public class DrawPath : MonoBehaviour
     private float currentLength;
 
     public static DrawPath instance;
-    private bool isDrawing;
+
+    // state variables
+    private bool drawing;
     private bool cancel;
     private bool finished;
 
@@ -45,7 +47,7 @@ public class DrawPath : MonoBehaviour
         // mouse clicked
         if (Input.GetMouseButtonDown(0))
         {
-            isDrawing = true;
+            drawing = true;
             cancel = false;
             finished = false;
 
@@ -71,13 +73,13 @@ public class DrawPath : MonoBehaviour
             lastMousePos = mousePos;
         }
         // mouse held
-        if (Input.GetMouseButton(0) && isDrawing)
+        if (Input.GetMouseButton(0) && drawing)
         {
             // if player right clicks while drawing, cancel
             if (Input.GetMouseButtonDown(1))
             {
                 Destroy(currPath);
-                isDrawing = false;
+                drawing = false;
                 cancel = true;
                 return;
             }
@@ -117,7 +119,7 @@ public class DrawPath : MonoBehaviour
             }
             edgeCollider.points = edgePoints;
 
-            isDrawing = false;
+            drawing = false;
             finished = true;
         }
     }
@@ -129,7 +131,7 @@ public class DrawPath : MonoBehaviour
 
     public bool IsDrawing()
     {
-        return isDrawing;
+        return drawing;
     }
 
     public bool IsCanceled()
