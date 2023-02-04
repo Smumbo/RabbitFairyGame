@@ -15,9 +15,13 @@ public class PathNode : Node
     // Update is called once per frame
     void Update()
     {
+        if (DrawPath.instance.IsCanceled())
+        {
+            return;
+        }
         // If player is done drawing and we need to disable drawing,
         // disable it and activate the path belonging to this node
-        if (stopDrawing && !DrawPath.instance.IsDrawing())
+        if (stopDrawing && !DrawPath.instance.IsDrawing() && DrawPath.instance.IsFinished())
         {
             SceneManager.instance.SetCanDraw(false);
             stopDrawing = false;

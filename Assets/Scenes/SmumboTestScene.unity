@@ -304,6 +304,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 6288120029689098886, guid: 3d79ef7f5989d4360871af840bcf26b0, type: 3}
+      propertyPath: jumpForce
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6288120029689098886, guid: 3d79ef7f5989d4360871af840bcf26b0, type: 3}
       propertyPath: groundCheckRadius
       value: 0.5
       objectReference: {fileID: 0}
@@ -766,7 +770,7 @@ PrefabInstance:
     - target: {fileID: 7126754153543210262, guid: 45e2fad5bfb7bac48bfcb2c06dca4137, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 1089384573}
+      objectReference: {fileID: 1960396421}
     - target: {fileID: 7126754153543210263, guid: 45e2fad5bfb7bac48bfcb2c06dca4137, type: 3}
       propertyPath: m_RootOrder
       value: 1

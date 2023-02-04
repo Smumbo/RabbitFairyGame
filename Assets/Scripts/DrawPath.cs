@@ -12,7 +12,6 @@ public class DrawPath : MonoBehaviour
 
     // current and previous path
     private GameObject currPath;
-    private GameObject lastPath = null;
 
     // current renderer and collider being drawn
     private LineRenderer lineRenderer;
@@ -27,6 +26,8 @@ public class DrawPath : MonoBehaviour
 
     public static DrawPath instance;
     private bool isDrawing;
+    private bool cancel;
+    private bool finished;
 
     public DrawPath()
     {
@@ -45,6 +46,8 @@ public class DrawPath : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             isDrawing = true;
+            cancel = false;
+            finished = false;
 
             // start a new path
             currentLength = 0f;
@@ -68,8 +71,17 @@ public class DrawPath : MonoBehaviour
             lastMousePos = mousePos;
         }
         // mouse held
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && isDrawing)
         {
+            // if player right clicks while drawing, cancel
+            if (Input.GetMouseButtonDown(1))
+            {
+                Destroy(currPath);
+                isDrawing = false;
+                cancel = true;
+                return;
+            }
+
             // update mouse position
             mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mousePos.z = transform.position.z;
@@ -91,12 +103,11 @@ public class DrawPath : MonoBehaviour
         // mouse released
         if (Input.GetMouseButtonUp(0))
         {
-            // If there is a previous path, destroy it and make the new one
-            if (lastPath != null)
+            if (cancel)
             {
-                Destroy(lastPath);
+                cancel = false;
+                return;
             }
-            lastPath = currPath;
 
             // generate collider points from line renderer
             Vector2[] edgePoints = new Vector2[lineRenderer.positionCount];
@@ -105,9 +116,9 @@ public class DrawPath : MonoBehaviour
                 edgePoints[i] = lineRenderer.GetPosition(i);
             }
             edgeCollider.points = edgePoints;
-            edgeCollider.enabled = true;
 
             isDrawing = false;
+            finished = true;
         }
     }
 
@@ -120,5 +131,16 @@ public class DrawPath : MonoBehaviour
     {
         return isDrawing;
     }
+
+    public bool IsCanceled()
+    {
+        return cancel;
+    }
+
+    public bool IsFinished()
+    {
+        return finished;
+    }
+    
 }
 
