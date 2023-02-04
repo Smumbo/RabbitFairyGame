@@ -46,7 +46,7 @@ public class DrawPath : MonoBehaviour
         {
             isDrawing = true;
 
-            // start a new line
+            // start a new path
             currentLength = 0f;
             currPath = new GameObject("Path");
             currPath.transform.parent = transform;
@@ -83,10 +83,10 @@ public class DrawPath : MonoBehaviour
                 // add to line renderer
                 lineRenderer.positionCount++;
                 lineRenderer.SetPosition(lineRenderer.positionCount - 1, mousePos);
-            }
 
-            // update mouse position
-            lastMousePos = mousePos;
+                // update mouse position
+                lastMousePos = mousePos;
+            }
         }
         // mouse released
         if (Input.GetMouseButtonUp(0))
