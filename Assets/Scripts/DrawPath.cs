@@ -3,21 +3,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MouseDrawing : MonoBehaviour
+public class DrawPath : MonoBehaviour
 {
     // public variables
     public Material lineMaterial;
     public float lineWidth = 0.1f;
     public float maxLength = 10f;
 
-    // lists to store the renderer and collider for the paths
-    private List<LineRenderer> lines;
-    private List<EdgeCollider2D> edgeColliders;
+    // current and previous path
+    private GameObject currPath;
+    private GameObject lastPath = null;
 
     // current renderer and collider being drawn
     private LineRenderer lineRenderer;
     private EdgeCollider2D edgeCollider;
-    private Vector2[] edgePoints;
 
     // current and previous mouse position
     private Vector3 mousePos;
@@ -26,12 +25,6 @@ public class MouseDrawing : MonoBehaviour
     // keep track of the current line length
     private float currentLength;
 
-    void Start()
-    {
-        lines = new List<LineRenderer>();
-        edgeColliders = new List<EdgeCollider2D>();
-    }
-
     void Update()
     {
         // mouse clicked
@@ -39,16 +32,19 @@ public class MouseDrawing : MonoBehaviour
         {
             // start a new line
             currentLength = 0f;
-            GameObject lineObject = new GameObject("Line");
-            lineObject.transform.parent = transform;
+            currPath = new GameObject("Path");
+            currPath.transform.parent = transform;
 
-            // create a line renderer
-            lineRenderer = lineObject.AddComponent<LineRenderer>();
+            // create line renderer
+            lineRenderer = currPath.AddComponent<LineRenderer>();
             lineRenderer.material = lineMaterial;
             lineRenderer.startWidth = lineWidth;
             lineRenderer.endWidth = lineWidth;
             lineRenderer.positionCount = 0;
-            lines.Add(lineRenderer);
+
+            // create collider
+            edgeCollider = currPath.AddComponent<EdgeCollider2D>();
+            edgeCollider.enabled = false;
 
             // calculate mouse position
             mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -65,31 +61,35 @@ public class MouseDrawing : MonoBehaviour
             // add to length
             currentLength += Vector3.Distance(mousePos, lastMousePos);
 
-            // only continue if below max length
+            // only continue drawing if below max length
             if (currentLength <= maxLength)
             {
                 // add to line renderer
                 lineRenderer.positionCount++;
                 lineRenderer.SetPosition(lineRenderer.positionCount - 1, mousePos);
-                lastMousePos = mousePos;
             }
+
+            // update mouse position
+            lastMousePos = mousePos;
         }
         // mouse released
         if (Input.GetMouseButtonUp(0))
         {
-            // create collider
-            GameObject edgeObject = new GameObject("Edge");
-            edgeObject.transform.parent = transform;
-            edgeCollider = edgeObject.AddComponent<EdgeCollider2D>();
-            edgeColliders.Add(edgeCollider);
+            // If there is a previous path, destroy it and make the new one
+            if (lastPath != null)
+            {
+                Destroy(lastPath);
+            }
+            lastPath = currPath;
 
-            // generate collider points using line renderer
-            edgePoints = new Vector2[lineRenderer.positionCount];
+            // generate collider points from line renderer
+            Vector2[] edgePoints = new Vector2[lineRenderer.positionCount];
             for (int i = 0; i < lineRenderer.positionCount; i++)
             {
                 edgePoints[i] = lineRenderer.GetPosition(i);
             }
             edgeCollider.points = edgePoints;
+            edgeCollider.enabled = true;
         }
     }
 }
