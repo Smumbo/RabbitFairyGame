@@ -21,6 +21,6 @@ public class MushroomNode : MonoBehaviour
 
     private void OnMouseDown()
     {
-        
+        mushroom.SetActive(true);
     }
 }
