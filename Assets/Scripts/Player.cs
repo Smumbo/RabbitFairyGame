@@ -29,7 +29,6 @@ public class Player : MonoBehaviour
             if (Input.GetButtonDown("Jump"))
             {
                 newVel.y = jumpForce;
-                Debug.Log("jumped");
             }
         }
         else
