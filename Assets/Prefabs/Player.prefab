@@ -103,8 +103,8 @@ MonoBehaviour:
   jumpForce: 3
   bounceForce: 5
   groundCheckShift: {x: 0, y: -0.25}
-  groundCheckDistance: 0.2
-  groundCheckRadius: 0.1
+  groundCheckDistance: 0.23
+  groundCheckRadius: 0.13
   stickiness: 0.5
   lastCheckpoint: {fileID: 0}
 --- !u!50 &6288120029689098885
