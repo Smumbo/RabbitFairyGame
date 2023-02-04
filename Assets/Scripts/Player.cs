@@ -12,17 +12,28 @@ public class Player : MonoBehaviour
     public float stickiness = 0.5f;
     private Rigidbody2D rb;
     private bool previouslyJumping = false;
+    private Animator animator;
     public GameObject lastCheckpoint;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = this.GetComponent<Rigidbody2D>();
+        animator = this.GetComponent<Animator>();
     }
 
     private void Update()
     {
         float xMove = Input.GetAxisRaw("Horizontal");
+
+        if(xMove > 0){
+            animator.SetBool("Idle", false);
+            animator.SetBool("Moving", true);
+        }
+        else{
+            animator.SetBool("Idle", true);
+            animator.SetBool("Moving", false);
+        }
 
         Vector2 newVel = new Vector2((xMove * speed) - rb.velocity.x, 0);
 
