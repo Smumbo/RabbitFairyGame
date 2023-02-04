@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb;
     private bool previouslyJumping = false;
     private Animator animator;
+    private SpriteRenderer sprite;
     public GameObject lastCheckpoint;
 
     // Start is called before the first frame update
@@ -20,13 +21,22 @@ public class Player : MonoBehaviour
     {
         rb = this.GetComponent<Rigidbody2D>();
         animator = this.GetComponent<Animator>();
+        sprite = this.GetComponent<SpriteRenderer>();
     }
 
     private void Update()
     {
         float xMove = Input.GetAxisRaw("Horizontal");
 
-        if(xMove > 0){
+        if(xMove < 0){
+            sprite.flipX = true;
+
+        }
+        else if(xMove > 0){
+            sprite.flipX = false;
+        }
+
+        if(xMove > 0 || xMove < 0){
             animator.SetBool("Idle", false);
             animator.SetBool("Moving", true);
         }
