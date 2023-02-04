@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Burst.CompilerServices;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -25,13 +22,8 @@ public class Player : MonoBehaviour
         float xMove = Input.GetAxisRaw("Horizontal");
 
         Vector2 newVel = new Vector2((xMove * speed) - rb.velocity.x, 0);
-        
-        if (HitMushroom())
-        {
-            Vector2 dir = Vector2.Perpendicular(-rb.velocity);
-            newVel += dir.normalized * bounceForce;
-        }
-        else if (IsGrounded())
+
+        if (IsGrounded())
         {
             if (Input.GetButtonDown("Jump"))
             {
@@ -77,6 +69,16 @@ public class Player : MonoBehaviour
         else if (collision.gameObject.GetComponent<Checkpoint>() != null)
         {
             lastCheckpoint = collision.gameObject;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.GetComponent<MushroomNode>() != null)
+        {
+            Vector2 dir = Vector2.Perpendicular(-collision.contacts[0].normal);
+            dir.y = Mathf.Max(Mathf.Abs(dir.y), 1);
+            rb.velocity += dir * bounceForce;
         }
     }
 }
