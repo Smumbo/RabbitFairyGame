@@ -9,7 +9,9 @@ public class Player : MonoBehaviour
     public Vector2 groundCheckShift;
     public float groundCheckDistance;
     public float groundCheckRadius = 0.5f;
+    public float stickiness = 0.5f;
     private Rigidbody2D rb;
+    private bool previouslyJumping = false;
     public GameObject lastCheckpoint;
 
     // Start is called before the first frame update
@@ -29,6 +31,15 @@ public class Player : MonoBehaviour
             if (Input.GetButtonDown("Jump"))
             {
                 newVel.y = jumpForce;
+                previouslyJumping = true;
+            }
+            else if (!previouslyJumping)
+            {
+                newVel.y = -stickiness;
+            }
+            else
+            {
+                previouslyJumping = false;
             }
         }
         else
@@ -43,7 +54,7 @@ public class Player : MonoBehaviour
     private bool IsGrounded()
     {
         RaycastHit2D hit;
-        if (hit = Physics2D.CircleCast(rb.position + groundCheckShift, groundCheckRadius, Vector2.down * groundCheckDistance, groundCheckDistance, LayerMask.GetMask(new string[]{ "Default"})))
+        if (hit = Physics2D.BoxCast(rb.position + groundCheckShift, new Vector2(0.85f, groundCheckRadius), 0, Vector2.down * groundCheckDistance, groundCheckDistance, LayerMask.GetMask(new string[]{ "Default"})))
         {
             return !hit.collider.isTrigger;
         }
