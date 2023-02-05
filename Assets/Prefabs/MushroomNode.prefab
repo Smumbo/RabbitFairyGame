@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -1411401846, guid: 116a8bd8b9364d84e95b9023cddcda7c, type: 3}
-  m_Color: {r: 0, g: 0.09376422, b: 0.764151, a: 0.5019608}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.5019608}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -228,7 +228,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -1341464485, guid: 116a8bd8b9364d84e95b9023cddcda7c, type: 3}
-  m_Color: {r: 0, g: 0.6183789, b: 1, a: 1}
+  m_Color: {r: 0.8254717, g: 0.8491995, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -286,3 +286,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   createdObject: {fileID: 6705167201007895752}
+  fairy: {fileID: 0}
