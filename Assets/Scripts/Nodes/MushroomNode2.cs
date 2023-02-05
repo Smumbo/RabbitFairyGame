@@ -7,6 +7,7 @@ public class MushroomNode2 : Node
     private SpriteRenderer nodeSprite;
     private bool isActive;
     private Animator animator;
+    private AudioSource boing;
 
     // Start is called before the first frame update
     void Start()
@@ -15,6 +16,7 @@ public class MushroomNode2 : Node
         isActive = false;
         createdObject.SetActive(false);
         animator = createdObject.GetComponent<Animator>();
+        boing = createdObject.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -52,6 +54,7 @@ public class MushroomNode2 : Node
     {
         if(collision.gameObject.GetComponent<Player>() != null){
             animator.SetTrigger("bounce");
+            boing.Play();
         }
     }
 
