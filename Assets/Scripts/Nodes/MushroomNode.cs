@@ -8,11 +8,16 @@ public class MushroomNode : Node
     private Animator animator;
     public Fairy fairy;
 
+    private void Start()
+    {
+
+        animator = GetComponentInChildren<Animator>();
+        nodeSprite = this.GetComponent<SpriteRenderer>();
+    }
+
     private void OnMouseDown()
     {
         SceneManager.instance.ActivateNode(this);
-        nodeSprite = this.GetComponent<SpriteRenderer>();
-        animator = GetComponentInChildren<Animator>();
     }
 
     public override void Activate()
