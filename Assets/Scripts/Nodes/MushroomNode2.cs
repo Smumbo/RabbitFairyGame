@@ -42,6 +42,7 @@ public class MushroomNode2 : Node
     {
         nodeSprite.enabled = false;
         createdObject.SetActive(true);
+        boing.Play();
     }
 
     public override void Deactivate()
