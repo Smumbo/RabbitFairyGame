@@ -7,6 +7,7 @@ public class MushroomNode : Node
     private SpriteRenderer nodeSprite;
     private Animator animator;
     public Fairy fairy;
+    public bool isStem = false;
 
     private void Start()
     {
@@ -15,7 +16,7 @@ public class MushroomNode : Node
         nodeSprite = this.GetComponent<SpriteRenderer>();
     }
 
-    public bool isStem = false;
+
     private void OnMouseDown()
     {
         SceneManager.instance.ActivateNode(this);
