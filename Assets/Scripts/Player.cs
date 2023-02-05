@@ -110,6 +110,28 @@ public class Player : MonoBehaviour
         {
             lastCheckpoint = collision.gameObject;
         }
+        else if (collision.gameObject.GetComponent<MushroomNode>() != null)
+        {
+            MushroomNode mushroom = collision.gameObject.GetComponent<MushroomNode>();
+            // If the mushroom is active and we're falling, then do the bounce logic
+            if (mushroom.createdObject.activeSelf)
+            {
+                // if walking up to stem
+                if (mushroom.isStem)
+                {
+                    Vector2 dir = Vector2.up;
+                    rb.velocity += dir * bounceForce * 2;
+                }
+                // if falling onto mushroom
+                else if (rb.velocity.y < 0)
+                {
+                    Vector2 dir = Vector2.Perpendicular(-rb.velocity);
+                    dir.y = Mathf.Max(Mathf.Abs(dir.y), 1);
+                    rb.velocity += dir * bounceForce;
+                }
+            }
+
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
