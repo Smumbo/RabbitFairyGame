@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class Player : MonoBehaviour
 {
@@ -65,6 +66,7 @@ public class Player : MonoBehaviour
         }
         else
         {
+
             newVel /= rb.mass / Time.deltaTime;
             newVel.y += Physics2D.gravity.y * Time.deltaTime;
         }
@@ -91,7 +93,10 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<Death>() != null)
         {
+            //StartCoroutine(Die());
             this.transform.position = lastCheckpoint.transform.position;
+            //animator.SetBool("Dead", false);
+
         }
         else if (collision.gameObject.GetComponent<Checkpoint>() != null)
         {
@@ -108,5 +113,12 @@ public class Player : MonoBehaviour
             dir.y = Mathf.Max(Mathf.Abs(dir.y), 1);
             rb.velocity += dir * bounceForce;
         }
+    }
+
+    private IEnumerator Die(){
+        animator.SetBool("Dead", true);
+        yield return new WaitForSeconds(1f);
+        animator.SetBool("Dead", false);
+        this.transform.position = lastCheckpoint.transform.position;
     }
 }
