@@ -1096,6 +1096,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6288120029689098886, guid: 3d79ef7f5989d4360871af840bcf26b0, type: 3}
+      propertyPath: jumpForce
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6288120029689098886, guid: 3d79ef7f5989d4360871af840bcf26b0, type: 3}
       propertyPath: groundCheckShift.y
       value: -0.55
       objectReference: {fileID: 0}

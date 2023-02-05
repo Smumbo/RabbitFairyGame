@@ -287,3 +287,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   createdObject: {fileID: 6705167201007895752}
   fairy: {fileID: 0}
+  isStem: 0
