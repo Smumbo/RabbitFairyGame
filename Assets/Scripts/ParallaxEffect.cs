@@ -21,7 +21,7 @@ public class Parallax : MonoBehaviour
     {
         float temp = camera.transform.position.x * (1 - parallaxFactor);
         float distance = camera.transform.position.x * parallaxFactor;
-        Vector3 newPosition = new Vector3(startpos + distance, transform.position.y, transform.position.z);
+        Vector3 newPosition = new Vector3(startpos + distance, camera.transform.position.y, transform.position.z);
         transform.position = newPosition;
 
         if (temp > startpos + (length / 2))
