@@ -6,6 +6,7 @@ public class MushroomNode : Node
 {
     private SpriteRenderer nodeSprite;
     private Animator animator;
+    public Fairy fairy;
 
     private void OnMouseDown()
     {
@@ -31,5 +32,15 @@ public class MushroomNode : Node
         if(collision.gameObject.GetComponent<Player>() != null){
             animator.SetTrigger("bounce");
         }
+    }
+
+    private void OnMouseOver()
+    {
+        fairy.Hover();
+    }
+
+    private void OnMouseExit()
+    {
+        fairy.DeHover();
     }
 }

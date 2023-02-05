@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Checkpoint : MonoBehaviour
 {
+
+    public Sprite on;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +24,7 @@ public class Checkpoint : MonoBehaviour
         if (player != null)
         {
             player.lastCheckpoint = this.gameObject;
+            this.GetComponent<SpriteRenderer>().sprite = on;
         }
     }
 
