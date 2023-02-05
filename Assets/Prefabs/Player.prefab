@@ -111,6 +111,8 @@ MonoBehaviour:
   groundCheckDistance: 0.1
   stickiness: 0.5
   lastCheckpoint: {fileID: 0}
+  walksfx: {fileID: 694404604079159557}
+  deathsfx: {fileID: 7072119099338223292}
 --- !u!50 &6288120029689098885
 Rigidbody2D:
   serializedVersion: 4

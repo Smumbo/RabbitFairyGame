@@ -18,7 +18,8 @@ public class Player : MonoBehaviour
     private SpriteRenderer sprite;
     public GameObject lastCheckpoint;
 
-    private AudioSource walksfx;
+    public AudioSource walksfx;
+    public AudioSource deathsfx;
 
     // Start is called before the first frame update
     void Start()
@@ -26,7 +27,6 @@ public class Player : MonoBehaviour
         rb = this.GetComponent<Rigidbody2D>();
         animator = this.GetComponent<Animator>();
         sprite = this.GetComponent<SpriteRenderer>();
-        walksfx = this.GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -155,7 +155,8 @@ public class Player : MonoBehaviour
 
     private IEnumerator Die(){
         animator.SetTrigger("Death");
-        yield return new WaitForSeconds(0.8f);
+        deathsfx.Play();
+        yield return new WaitForSeconds(0.6f);
         this.transform.position = lastCheckpoint.transform.position;
     }
 
