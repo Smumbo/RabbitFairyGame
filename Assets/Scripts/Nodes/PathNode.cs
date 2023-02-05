@@ -6,10 +6,12 @@ using UnityEngine;
 public class PathNode : Node
 {
     private bool disableDrawing;
+    private AudioSource sfx;
 
     private void Start()
     {
         disableDrawing = false;
+        sfx = this.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -28,6 +30,7 @@ public class PathNode : Node
             disableDrawing = false;
             SceneManager.instance.ActivateNode(this);
         }
+
     }
 
     private void OnMouseEnter()
