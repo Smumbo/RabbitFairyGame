@@ -6,12 +6,15 @@ public class MushroomNode2 : Node
 {
     private SpriteRenderer nodeSprite;
     private bool isActive;
+    private Animator animator;
 
     // Start is called before the first frame update
     void Start()
     {
         nodeSprite = this.GetComponent<SpriteRenderer>();
         isActive = false;
+        createdObject.SetActive(false);
+        animator = createdObject.GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -44,4 +47,12 @@ public class MushroomNode2 : Node
         nodeSprite.enabled = true;
         createdObject.SetActive(false);
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.GetComponent<Player>() != null){
+            animator.SetTrigger("bounce");
+        }
+    }
+
 }

@@ -18,12 +18,15 @@ public class Player : MonoBehaviour
     private SpriteRenderer sprite;
     public GameObject lastCheckpoint;
 
+    private AudioSource walksfx;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = this.GetComponent<Rigidbody2D>();
         animator = this.GetComponent<Animator>();
         sprite = this.GetComponent<SpriteRenderer>();
+        walksfx = this.GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -42,10 +45,14 @@ public class Player : MonoBehaviour
         {
             animator.SetBool("Idle", false);
             animator.SetBool("Moving", true);
+            if(!walksfx.isPlaying){
+                walksfx.Play();
+            }
         }
         else{
             animator.SetBool("Idle", true);
             animator.SetBool("Moving", false);
+            walksfx.Stop();
         }
 
         Vector2 newVel = new Vector2((xMove * speed) - rb.velocity.x, 0);
@@ -120,7 +127,7 @@ public class Player : MonoBehaviour
                 if (mushroom.isStem)
                 {
                     Vector2 dir = Vector2.up;
-                    rb.velocity += dir * bounceForce * 2;
+                    rb.velocity += dir * bounceForce;
                 }
                 // if falling onto mushroom
                 else if (rb.velocity.y < 0)
@@ -132,18 +139,26 @@ public class Player : MonoBehaviour
             }
 
         }
+        else if(collision.gameObject.GetComponent<MushroomNode2>() != null){
+            MushroomNode2 mushroom = collision.gameObject.GetComponent<MushroomNode2>();
+            if(mushroom.createdObject.activeSelf){
+                rb.velocity += Vector2.up * bounceForce * 2;
+            }
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        MushroomNode mushroom = collision.gameObject.GetComponent<MushroomNode>();
+       /* MushroomNode mushroom = collision.gameObject.GetComponent<MushroomNode>();
         if (mushroom != null && mushroom.createdObject.activeSelf)
         {
             Vector2 dir = Vector2.Perpendicular(collision.contacts[0].normal) * Vector2.Dot(rb.velocity, collision.contacts[0].normal);
             dir.y = Mathf.Max(Mathf.Abs(dir.y), 1);
             rb.velocity += dir * bounceForce;
-        }
+        }*/
+       
     }
+
 
     private IEnumerator Die(){
         animator.SetBool("Dead", true);
