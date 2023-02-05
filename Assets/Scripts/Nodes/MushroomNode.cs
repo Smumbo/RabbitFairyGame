@@ -8,6 +8,7 @@ public class MushroomNode : Node
     private Animator animator;
     public Fairy fairy;
 
+    public bool isStem = false;
     private void OnMouseDown()
     {
         SceneManager.instance.ActivateNode(this);
