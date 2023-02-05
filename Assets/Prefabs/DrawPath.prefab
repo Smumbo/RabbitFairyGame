@@ -45,5 +45,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pathMaterial: {fileID: 2100000, guid: 962853a4b98a46749933540b818b9fea, type: 2}
-  lineWidth: 0.1
+  lineWidth: 1
   maxLength: 10
