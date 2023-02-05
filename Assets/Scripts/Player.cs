@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 using System.Collections;
 
@@ -8,8 +9,8 @@ public class Player : MonoBehaviour
     public float jumpForce;
     public float bounceForce;
     public Vector2 groundCheckShift;
+    public Vector2 groundCheckSize;
     public float groundCheckDistance;
-    public float groundCheckRadius = 0.5f;
     public float stickiness = 0.5f;
     private Rigidbody2D rb;
     private bool previouslyJumping = false;
@@ -37,7 +38,8 @@ public class Player : MonoBehaviour
             sprite.flipX = false;
         }
 
-        if(xMove > 0 || xMove < 0){
+        if(xMove > 0 || xMove < 0)
+        {
             animator.SetBool("Idle", false);
             animator.SetBool("Moving", true);
         }
@@ -76,10 +78,16 @@ public class Player : MonoBehaviour
 
     private bool IsGrounded()
     {
-        RaycastHit2D hit;
-        if (hit = Physics2D.BoxCast(rb.position + groundCheckShift, new Vector2(0.85f, groundCheckRadius), 0, Vector2.down * groundCheckDistance, groundCheckDistance, LayerMask.GetMask(new string[]{ "Default"})))
+        RaycastHit2D[] hit = Physics2D.BoxCastAll(rb.position + groundCheckShift, groundCheckSize, 0, Vector2.down * groundCheckDistance, groundCheckDistance, LayerMask.GetMask(new string[] { "Default" }));
+        if (hit.Count() > 0)
         {
-            return !hit.collider.isTrigger;
+            foreach (RaycastHit2D h in hit)
+            {
+                if (!h.collider.isTrigger)
+                {
+                    return true;
+                }
+            }
         }
         return false;
     }
