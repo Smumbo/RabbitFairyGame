@@ -44,6 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5868458f1b9abe747b50c73c7106bea0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lineMaterial: {fileID: 0}
+  pathMaterial: {fileID: 2100000, guid: 962853a4b98a46749933540b818b9fea, type: 2}
   lineWidth: 0.1
   maxLength: 10
