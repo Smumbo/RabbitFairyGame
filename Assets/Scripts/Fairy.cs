@@ -36,4 +36,16 @@ public class Fairy : MonoBehaviour
         animator.SetBool("Fast", false);
         //sprite.color = originalColor;
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.GetComponent<MushroomNode2>() != null || collision.gameObject.GetComponent<PathNode>() != null){
+            this.Hover();
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        this.DeHover();
+    }
 }

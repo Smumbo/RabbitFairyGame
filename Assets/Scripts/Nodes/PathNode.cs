@@ -31,6 +31,13 @@ public class PathNode : Node
             SceneManager.instance.ActivateNode(this);
         }
 
+        if(DrawPath.instance.IsDrawing()){
+            sfx.Play();
+        }
+        else{
+            sfx.Stop();
+        }
+
     }
 
     private void OnMouseEnter()
